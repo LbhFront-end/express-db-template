@@ -1,9 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import { login, register, logout, upload } from '../controllers'
-import {
-  catchAsync
-} from '../middleware/error';
+import { posts,upload } from '@/controllers';
 
 const router = express.Router();
 
@@ -12,14 +9,13 @@ const storage = multer.diskStorage({
     cb(null, './public/images')
   },
   filename: function (req, file, cb) {
+    console.log(file)
     cb(null, `${Date.now()}-${(file.originalname)}`)
   }
 })
 const fileUpload = multer({ storage });
 
-router.post('/login', catchAsync(login));
-router.post('/register', catchAsync(register));
-router.post('/logout', catchAsync(logout));
+router.get('/posts', posts);
 router.post('/upload', fileUpload.single('file'), upload);
 
 export { router }

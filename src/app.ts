@@ -1,10 +1,9 @@
 import createHttpError from 'http-errors';
 import express from 'express';
-import * as path from 'path';
+import path from 'path';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
-import { router as indexRouter } from './routes/index';
-import { router as usersRouter } from './routes/users';
+import { router as indexRouter } from '@/routes/index';
 
 
 const port = 3000
@@ -21,7 +20,6 @@ app.use(cookieParser());
 app.use(express.static('public'));
 
 app.use('/', indexRouter);
-app.use('/user', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,2 +1,2 @@
 export * from './upload';
-export * from './users';
+export * from './posts';
