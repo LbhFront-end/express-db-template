@@ -1,4 +1,7 @@
 export class AppError extends Error {
+  statusCode: string;
+  status: string;
+  isOperational: boolean;
   constructor(message, statusCode) {
     super();
 
@@ -25,7 +28,7 @@ export const errorHandler = (err, req, res, next) => {
   if (error.code == 'ERR_INVALID_ARG_TYPE') {
     // error = new AppError('Please input valid value!',400)
   }
-  
+
   res.status(err.statusCode).json({
     status: error.status,
     message: error.message
@@ -44,7 +47,7 @@ const handleDuplicateFieldsDB = err => {
 };
 
 const handleValidationErrorDB = err => {
-  const errors = Object.values(err.errors).map(el => el.message);
+  const errors = Object.values(err.errors).map((el: any) => el.message);
   const message = `Invalid input data. ${errors.join('. ')}`;
   return new AppError(message, 400);
 };
